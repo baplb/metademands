@@ -288,8 +288,8 @@ msgid "Ticket \"%s\" updated to metademand with success"
 msgstr "Ticket \"%s\" modifié en méta-demande avec succès"
 
 #: inc/metademand.class.php:1072
-msgid "################### Son ticket ###################"
-msgstr "################### Ticket fils ###################"
+msgid "########## Son ticket ##########"
+msgstr "########## Ticket fils ##########"
 
 #: inc/metademand.class.php:1194
 msgid "Demand followup"

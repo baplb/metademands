@@ -76,6 +76,11 @@ function plugin_metademands_install() {
       $DB->runFile(GLPI_ROOT."/plugins/metademands/install/sql/update-2.4.1.sql");
    }
 
+   //version 2.4.2
+   if (!$DB->fieldExists("glpi_plugin_metademands_tickettasks", "users_id_validate")) {
+      $DB->runFile(GLPI_ROOT."/plugins/metademands/install/sql/update-2.4.2.sql");
+   }
+
    PluginMetademandsProfile::createFirstAccess($_SESSION['glpiactiveprofile']['id']);
    PluginMetademandsProfile::initProfile();
    $DB->query("DROP TABLE IF EXISTS `glpi_plugin_metademands_profiles`;");
