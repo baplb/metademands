@@ -37,10 +37,14 @@ $field = new PluginMetademandsField();
 
 if (!isset($_POST["check_value"])) {
    $_POST["check_value"] = "";
-} else{
+} else {
    $_POST["check_value"] = $field->_serialize($_POST["check_value"]);
+}
+if (isset($_POST["plugin_metademands_tasks_id"])) {
    $_POST["plugin_metademands_tasks_id"] = $field->_serialize($_POST["plugin_metademands_tasks_id"]);
-   $_POST["fields_link"] = $field->_serialize($_POST["fields_link"]);
+}
+if (isset($_POST["check_value"])) {
+   $_POST["check_value"] = $field->_serialize($_POST["check_value"]);
 }
 
 if (isset($_POST["add"])) {
