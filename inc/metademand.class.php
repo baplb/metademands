@@ -845,7 +845,7 @@ class PluginMetademandsMetademand extends CommonDropdown {
                }
 
                // Get predefined ticket fields
-               $parent_ticketfields = $this->formatTicketFields($form_metademands_id);
+               $parent_ticketfields = $this->formatTicketFields($form_metademands_id,$metademand->getField('tickettemplates_id'));
 
                // Case of simple ticket convertion
                // Ticket does not exist : ADD
