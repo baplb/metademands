@@ -136,7 +136,7 @@ class PluginMetademandsGroup extends CommonDBTM {
          $op = "AND";
       }
       $dbu = new DbUtils();
-      $condition += $dbu->getEntitiesRestrictCriteria($group->getTable(), '', '', $group->maybeRecursive());
+      $condition = $dbu->getEntitiesRestrictCriteria($group->getTable(), '', '', $group->maybeRecursive());
       $dataGroup = $group->find($condition, 'name');
       if ($dataGroup) {
          foreach ($dataGroup as $field) {
