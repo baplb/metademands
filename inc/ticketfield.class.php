@@ -41,7 +41,7 @@ class PluginMetademandsTicketField extends CommonDBChild {
 
    //4 => requester
    //71 => requester group
-   static $used_fields   = ['content', 'name', 'itilcategories_id', 'type', 'time_to_resolve', 'itemtype',
+   static $used_fields   = ['content', 'itilcategories_id', 'type', 'time_to_resolve', 'itemtype',
                                  'items_id', '_groups_id_requester', '_users_id_requester', 'slas_id', 4, 71];
 
    static $types = ['PluginMetademandsMetademand'];
@@ -697,12 +697,7 @@ class PluginMetademandsTicketField extends CommonDBChild {
       $fieldnames = array_flip($fieldnames);
 
       // Get template type to add
-      $templateToAdd = $tt->mandatory;
-      switch ($templatetype) {
-         case 'predefined':
-            $templateToAdd = $tt->predefined;
-            break;
-      }
+      $templateToAdd = $tt->$templatetype;
 
       if (count($templateToAdd)) {
          foreach ($templateToAdd as $key => $val) {
