@@ -147,6 +147,7 @@
             var count = $('#count_custom_values').val();
                 $('#' + field_id + count).remove();
                 $('#count_custom_values').val(parseInt(count) - 1);
+                document.getElementsByName('check_value[]')[0].remove(parseInt(count))
 
          };
 
@@ -240,7 +241,7 @@
          this.injectFields = function (tickets_id, type) {
 
             // Inject fields
-            if ($("select[name='itilcategories_id']").length != 0) {
+            if ($("input[name='itilcategories_id']") != undefined) {
                 var formName = 'form_ticket';
                if (type == 'helpdesk') {
                    formName = 'helpdeskform';
@@ -359,7 +360,7 @@
                         });
 
                       // Type change : reload family and category
-                      $("select[name='families_id']").on('change', function () {
+                      $("input[name='families_id']").on('change', function () {
                           $("input[name='itilcategories_id']").val(0);
                           object.metademands_loadFamilies(tickets_id, loadCounter, formName);
                       });
@@ -417,11 +418,11 @@
                success: function (response, opts) {
                   if (response != '') {
                       $("select[name='type'], input[name='type']").closest('tr').remove();
-                      $("select[name='itilcategories_id']").closest('tr').remove();
-                      $("select[name='families_id']").closest('tr').remove();
+                      $("input[name='itilcategories_id']").closest('tr').remove();
+                      $("input[name='families_id']").closest('tr').remove();
 
-                     if ($("select[name='plugin_metademands_itilapplications_id']").length > 0) {
-                         $(response).insertBefore($("select[name='plugin_metademands_itilapplications_id']").closest('tr'));
+                     if ($("input[name='plugin_metademands_itilapplications_id']").length > 0) {
+                         $(response).insertBefore($("input[name='plugin_metademands_itilapplications_id']").closest('tr'));
                      } else {
                          $(response).insertBefore($("select[name='urgency']").closest('tr'));
                      }
@@ -434,7 +435,7 @@
                         });
 
                       // Type change : reload family and category
-                      $("select[name='families_id']").on('change', function () {
+                      $("input[name='families_id']").on('change', function () {
                           $("input[name='itilcategories_id']").val(0);
                           object.metademands_loadHelpdeskFamilies(tickets_id, formName);
                       });
@@ -642,3 +643,25 @@
          return this;
     }
 }(jQuery));
+
+function add_in_dropdown(id){
+    allinput = document.querySelectorAll("input[name ^= 'custom_values[']");
+    Object.keys(allinput).forEach(function(key) {
+        if(parseInt(key)+1 == id){
+            var lstInputs =  document.getElementsByName('check_value[]');
+            lstInputs.forEach(function(input){
+                var idSelect = input[0].id;
+                if(input.options[parseInt(key)+1] != undefined){
+                    input.item(parseInt(key)+1).text = allinput[key].value;
+                    $("#"+idSelect).select2({minimumResultsForSearch: -1});
+                } else{
+                    var option = document.createElement('option');
+                    option.value = parseInt(key)+1;
+                    option.text = allinput[key].value;
+                    input.add(option);
+                }
+            });
+
+        }
+    });
+}

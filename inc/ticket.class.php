@@ -270,7 +270,7 @@ class PluginMetademandsTicket extends CommonDBTM {
                        `glpi_plugin_metademands_tickets_tasks`.`level`,
                        `glpi_plugin_metademands_tickets_tasks`.`plugin_metademands_tasks_id` as tasks_id
                   FROM glpi_plugin_metademands_tickets_tasks
-                  WHERE `glpi_plugin_metademands_tickets_tasks`.`parent_tickets_id` = ". $tickets_id."";
+                  WHERE `glpi_plugin_metademands_tickets_tasks`.`parent_tickets_id` = ". $tickets_id;
       $result = $DB->query($query);
 
       if ($DB->numrows($result)) {

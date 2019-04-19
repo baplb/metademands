@@ -111,7 +111,8 @@ class PluginMetademandsMetademand_Resource extends CommonDBTM {
       }
 
       $used_data = [];
-      $data = $this->getDataForResourceContractType($resourceContractType->fields['id'], ['entities_id' => $_SESSION['glpiactiveentities']]);
+      $data = $this->getDataForResourceContractType($resourceContractType->fields['id'], "`entities_id` IN ('".implode("','", $_SESSION['glpiactiveentities'])."')");
+
       if ($data) {
          foreach ($data as $field) {
             $used_data[] = $field['plugin_metademands_metademands_id'];
