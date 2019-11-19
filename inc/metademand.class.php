@@ -892,6 +892,28 @@ class PluginMetademandsMetademand extends CommonDropdown {
                   $values['fields']['tickets_id'] = 0;
                }
 
+               //Prevent create subtickets
+               $fieldDbtm = new PluginMetademandsField();
+               foreach ($_POST['field'] as $key => $field){
+                  $fieldDbtm->getFromDB($key);
+                  $check_value[$key] = PluginMetademandsField::_unserialize($fieldDbtm->getField('check_value'));
+                  $idTask = PluginMetademandsField::_unserialize($fieldDbtm->getField("plugin_metademands_tasks_id"));
+                  if(isset($check_value[$key])){
+                     $ok = false;
+                     $keyIdTask = 0;
+                     foreach ($check_value[$key] as $keyCheck => $v){
+                        if($v == $field){
+                           $ok = true;
+                           $keyIdTask = $keyCheck;
+                        }
+                     }
+                     if(!$ok){
+                        unset($line['form'][$key]);
+                        unset($line['tasks'][$idTask[$keyIdTask]]);
+                        unset($values['fields'][$key]);
+                     }
+                  }
+               }
                if ($parent_tickets_id) {
                   // Create link for metademand task with ancestor metademand
                   if ($form_metademands_id == $metademands_id) {
