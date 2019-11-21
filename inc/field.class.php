@@ -264,8 +264,11 @@ class PluginMetademandsField extends CommonDBChild {
       echo "</span>";
 
       echo "<span id='show_item_title' style='display:none'>";
+      echo Html::script('/lib/jqueryplugins/spectrum-colorpicker/spectrum.js');
+      echo Html::css('lib/jqueryplugins/spectrum-colorpicker/spectrum.min.css');
+      Html::requireJs('colorpicker');
       $rand = mt_rand();
-      echo "<input type='text' id='color_$rand' name='color' value='".stripslashes($this->fields["color"])."' />";
+      Html::showColorField('color', ['value' => $this->fields["color"], 'rand' => $rand]);
       echo "</span>";
 
       $paramsItem = ['value'          => '__VALUE__',
@@ -430,7 +433,7 @@ class PluginMetademandsField extends CommonDBChild {
             echo "<td>".Dropdown::getYesNo($value['is_mandatory'])."</td>";
             echo "<td>";
             $name = Dropdown::getDropdownName('glpi_plugin_metademands_tasks', $value['plugin_metademands_tasks_id']);
-            if ($name == '&nbsp;') {
+            if ($name == '&nbsp;' && $value['plugin_metademands_tasks_id'] > 0) {
                $name = PluginMetademandsMetademandTask::getMetademandTaskName($value['plugin_metademands_tasks_id']);
             }
             echo !empty($name)?$name:Dropdown::EMPTY_VALUE;
